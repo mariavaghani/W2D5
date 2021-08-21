@@ -16,12 +16,12 @@ class Flight
   end
 
   def list_passengers
-    pass_list = @passengers.map { |passenger| passenger.name }
+    @passengers.map(&:name)  
   end
 
-  def [](idx)
-    @passengers[idx]
-  end
+  # def [](idx)
+  #   @passengers[idx]
+  # end
 
   def << (passenger)
     board_passenger(passenger)
