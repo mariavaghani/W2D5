@@ -5,11 +5,13 @@ class List
   attr_accessor :label
 
 
-  List_width = 50
-  Col1_w = 7
+  List_width = 52
+  Col1_w = 2
+  Col15_w = 2
   Col3_w = 15
-  Col2_w = List_width - Col3_w - Col1_w
-  Col1_name = "Index"
+  Col2_w = List_width - Col3_w - Col1_w - Col15_w - 5
+  Col1_name = "#"
+  Col15_name = "X"
   Col2_name = "Item"
   Col3_name = "Deadline"
 
@@ -58,10 +60,15 @@ class List
     puts "-"*List_width
     puts @label.upcase.center(List_width)
     puts "-"*List_width
-    puts "#{Col1_name.ljust(Col1_w)}| #{Col2_name.ljust(Col2_w)}| #{Col3_name.ljust(Col3_w)}"
+    puts "#{Col15_name.ljust(Col15_w)}| #{Col1_name.ljust(Col1_w)}| #{Col2_name.ljust(Col2_w)}| #{Col3_name.ljust(Col3_w)}"
     puts "-"*List_width
     @items.each_with_index do |item, idx|
-      puts "#{idx.to_s.ljust(Col1_w)}| #{item.title.ljust(Col2_w)}| #{item.deadline.ljust(Col3_w)}"
+      if item.done
+        status = "X"
+      else
+        status = " "
+      end
+      puts "#{status.ljust(Col15_w)}| #{idx.to_s.ljust(Col1_w)}| #{item.title.ljust(Col2_w)}| #{item.deadline.ljust(Col3_w)}"
     end
     puts "-"*List_width
 
@@ -69,8 +76,13 @@ class List
 
   def print_full_item(index)
     if valid_index?(index)
+      if @items[index].done
+        status = "X"
+      else
+        status = " "
+      end
       puts "-"*List_width
-      puts @items[index].title.ljust(List_width/2) + @items[index].deadline.rjust(List_width/2)
+      puts "|" + status.center(3) + "| " + @items[index].title.ljust((List_width/2)-5) + @items[index].deadline.rjust((List_width/2)-5)
       puts @items[index].description
       puts "-"*List_width
     end
@@ -98,7 +110,23 @@ class List
     end
   end
 
+  def toggle_item(index)
+    @items[index].toggle
+  end
+
   def sort_by_date!
     @items.sort_by! { |item| item.deadline.split('-').join("").to_i }
+  end
+
+  def remove_item(index)
+    if valid_index?(index)
+      @items.delete_at(index)
+      return true
+    end
+    false
+  end
+
+  def purge
+    @items.reject!(&:done)
   end
 end

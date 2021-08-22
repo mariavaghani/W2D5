@@ -1,4 +1,4 @@
-require_relative "list"
+require_relative "todo_board"
 
 puts "TESTING VALID DATE"
 puts "======================================================================================"
@@ -155,6 +155,71 @@ puts "==========================================================================
 p my_list.add_item('babies', '2019-09-03', 'a small one')
 p my_list.add_item('brushes', '2021-08-13', 'good ones')
 p my_list.add_item('flour', '2019-01-05', '4 bags should be enough')
+my_list.toggle_item(2)
+
 my_list.print
 my_list.sort_by_date!
 my_list.print 
+my_list.toggle_item(1)
+
+my_list.print_full_item(1)
+
+my_list.print_full_item(0)
+my_list.print_priority
+
+
+puts "TESTING delete"
+puts "======================================================================================"
+
+my_list.print
+my_list.remove_item(2)
+my_list.print
+
+todo = ToDoBoard.new
+
+todo.run
+
+# puts "commands to enter"
+# puts "+++++++++++++++++++++++++++++++++++++++"
+
+# # mktodo groceries 2019-10-24
+# puts "+++++++++++++++++++++++++++++++++++++++"
+
+# p todo
+
+/
+mklist groceries
+mklist tech
+ls
+mktodo groceries cheese 2019-10-25 foooooood
+mktodo groceries toothpaste 2019-10-23
+mktodo groceries candy 2019-10-31 sugar-free
+mktodo groceries shampoo 2019-10-25
+mktodo groceries cereal 2019-11-03
+mktodo groceries milk 2019-11-03 soso
+
+mktodo tech ruby 2019-10-24
+mktodo tech rails 2019-11-02
+mktodo tech javascript 2019-11-30
+showall
+
+print groceries 2
+toggle groceries 2
+toggle groceries 1
+toggle tech 2
+
+print groceries
+purge groceries
+rm groceries 3
+print groceries
+sort groceries
+print groceries
+swap groceries 0 2
+print groceries
+print groceries 1
+priority groceries
+down groceries 0
+print groceries
+up groceries 3 2
+print groceries
+/
